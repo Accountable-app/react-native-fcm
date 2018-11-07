@@ -264,13 +264,16 @@ public class SendNotificationTask extends AsyncTask<Void, Void, Void> {
                         String actionTitle = action.getString("title");
                         String actionId = action.getString("id");
                         Intent actionIntent = new Intent();
-                        actionIntent.setClassName(mContext, intentClassName);
+//                        actionIntent.setClassName(mContext, intentClassName);
+                        actionIntent.setClassName(mContext, "host.exp.exponent.MessageBroadcastReceiver");
                         actionIntent.setAction("com.evollu.react.fcm." + actionId + "_ACTION");
                         actionIntent.putExtras(bundle);
                         actionIntent.putExtra("_actionIdentifier", actionId);
+                        actionIntent.putExtra("notificationId", notificationID);
                         actionIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        PendingIntent pendingActionIntent = PendingIntent.getActivity(mContext, notificationID, actionIntent,
-                                PendingIntent.FLAG_UPDATE_CURRENT);
+//                        PendingIntent pendingActionIntent = PendingIntent.getActivity(mContext, notificationID, actionIntent,
+//                                PendingIntent.FLAG_UPDATE_CURRENT);
+                        PendingIntent pendingActionIntent = PendingIntent.getBroadcast(mContext, notificationID, actionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                         notification.addAction(0, actionTitle, pendingActionIntent);
                     }
