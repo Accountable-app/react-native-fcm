@@ -17,6 +17,9 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import host.exp.exponent.MainActivity;
+import host.exp.expoview.Exponent;
+
 public class MessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MessagingService";
@@ -30,7 +33,7 @@ public class MessagingService extends FirebaseMessagingService {
         buildLocalNotification(remoteMessage);
 
         final Intent message = i;
-        
+
         // We need to run this on the main thread, as the React code assumes that is true.
         // Namely, DevServerHelper constructs a Handler() without a Looper, which triggers:
         // "Can't create handler inside thread that has not called Looper.prepare()"
@@ -38,7 +41,7 @@ public class MessagingService extends FirebaseMessagingService {
         handler.post(new Runnable() {
             public void run() {
                 // Construct and load our normal React JS code bundle
-                ReactInstanceManager mReactInstanceManager = ((ReactApplication) getApplication()).getReactNativeHost().getReactInstanceManager();
+                ReactInstanceManager mReactInstanceManager = ((MainActivity)Exponent.getInstance().getCurrentActivity()).getReactInstanceManager();
                 ReactContext context = mReactInstanceManager.getCurrentReactContext();
                 // If it's constructed, send a notification
                 if (context != null) {

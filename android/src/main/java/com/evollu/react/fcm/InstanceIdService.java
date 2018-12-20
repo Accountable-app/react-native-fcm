@@ -13,6 +13,9 @@ import com.facebook.react.bridge.ReactContext;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
+import host.exp.exponent.MainActivity;
+import host.exp.expoview.Exponent;
+
 public class InstanceIdService extends FirebaseInstanceIdService {
 
     private static final String TAG = "InstanceIdService";
@@ -41,7 +44,7 @@ public class InstanceIdService extends FirebaseInstanceIdService {
         handler.post(new Runnable() {
             public void run() {
                 // Construct and load our normal React JS code bundle
-                ReactInstanceManager mReactInstanceManager = ((ReactApplication) getApplication()).getReactNativeHost().getReactInstanceManager();
+                ReactInstanceManager mReactInstanceManager = ((MainActivity)Exponent.getInstance().getCurrentActivity()).getReactInstanceManager();
                 ReactContext context = mReactInstanceManager.getCurrentReactContext();
                 // If it's constructed, send a notification
                 if (context != null) {
